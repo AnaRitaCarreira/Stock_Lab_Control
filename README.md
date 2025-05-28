@@ -29,9 +29,9 @@ This is a simple web-based inventory management system for laboratory items, bui
 
 ### 📥 Add New Item
 
-![Add Item Screenshot](/add_item.png)
+![Add Item Screenshot](/add_item.PNG)
 
-### 📥 Add New Item
+###  🔏 Login
 
 ![Login Screenshot](/login.PNG)
 
