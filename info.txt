@@ -1,0 +1,34 @@
+🧪 Projeto: Controle de Estoque de Laboratório 
+
+🎯 Objetivo:
+Criar um sistema web para registrar, visualizar, atualizar e remover itens de Stock de um laboratório biomédico (reagentes, amostras, EPIs, etc.), com alertas de validade ou quantidade baixa.
+
+⚙️ Tecnologias:
+Python
+
+Flask (microframework web)
+
+SQLite (banco de dados leve)
+
+Jinja2 (template HTML)
+
+Bootstrap (interface bonita e rápida)
+
+✅ Funcionalidades:
+ Cadastro de item (nome, tipo, quantidade, validade)
+
+ Visualização de Stock
+
+ Edição de itens
+
+ Exclusão de itens
+
+ Alerta de validade próxima ou baixo Stock
+
+
+Explicação:
+Se a quantidade for menor ou igual a 5 → aplica a classe Bootstrap table-warning.
+
+Se a validade for em até 7 dias (comparada com validade_limite) → também aplica o destaque.
+
+Isso funciona mesmo com o campo de validade em string (YYYY-MM-DD), porque strings nesse formato são comparáveis diretamente.

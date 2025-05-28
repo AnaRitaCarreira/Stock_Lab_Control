@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stock de Laboratório</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Roboto:wght@500&family=Montserrat:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <script>
+  function toggleFiltros() {
+    const div = document.getElementById('filtros');
+    const btn = document.getElementById('botaoFiltros');
+
+    if (div.style.display === 'none') {
+      div.style.display = 'block';
+      btn.textContent = 'Esconder filtros';
+    } else {
+      div.style.display = 'none';
+      btn.textContent = 'Mostrar filtros';
+    }
+  }
+</script>
+
+
+</head>
+<body class="p-4">
+    <h2>Stock de Laboratório</h2>
+
+    {% if session.autenticado %}
+    <p class="bemvindo" >Bem-vindo! <a class="btn_login_out" href="{{ url_for('logout') }}">Logout</a></p>
+    {% else %}
+        <p class="login_necessario"><a class="btn_login_out"  href="{{ url_for('login') }}">Login</a> necessário para editar stock.</p>
+    {% endif %}
+
+    {% if session['autenticado'] %}
+    <a href="{{ url_for('add') }}" class="btn_add">Adicionar Item</a>
+    {% endif %}
+
+    <button onclick="toggleFiltros()" id="botaoFiltros" >Mostrar filtros</button>
+
+    <script>  
+    window.onload = function () {
+      const temFiltrosAtivos = "{{ nome_filtro or tipo_filtro or destaque_filtro }}";
+      if (temFiltrosAtivos === "True") {
+        document.getElementById('filtros').style.display = 'block';
+        document.getElementById('botaoFiltros').textContent = 'Esconder filtros';
+      }
+    }
+  </script>
+
+    
+    <div id="filtros" style="display: none; margin-top: 1em;">
+    <form method="get" class="mb-3">
+    
+      <div class="row g-2">
+    <div class="col-md-3">
+      <input type="text" name="nome" class="form-control" placeholder="Pesquisar por nome" value="{{ nome_filtro }}">
+    </div>
+  
+    <div class="col-md-3">
+      <select name="tipo" class="form-select">
+        <option value="">Todos os tipos</option>
+        <option value="Reagente" {% if tipo_filtro == 'Reagente' %}selected{% endif %}>Reagente</option>
+        <option value="Equipamento" {% if tipo_filtro == 'Equipamento' %}selected{% endif %}>Equipamento</option>
+        <option value="Consumível" {% if tipo_filtro == 'Consumível' %}selected{% endif %}>Consumível</option>
+        <!-- Adicione mais se necessário -->
+      </select>
+    </div>
+      <div class="col-md-3">
+        <label>Destaques:</label><br>
+        <input type="checkbox" name="destaque" value="expired"
+            {% if 'expired' in destaque_filtro %}checked{% endif %}> Expirados<br>
+        <input type="checkbox" name="destaque" value="warning"
+            {% if 'warning' in destaque_filtro %}checked{% endif %}> Próximo da validade<br>
+        <input type="checkbox" name="destaque" value="danger"
+            {% if 'danger' in destaque_filtro %}checked{% endif %}> Pouca quantidade<br>
+
+    </div>
+    <div class="col-md-3">
+      <button type="submit" class="btn_submit">Filtrar</button>
+      <a href="/" class="btn_edit">Limpar</a>
+
+    </div>
+  </div>
+
+</form>
+</div>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th><a href="?ordenar=nome&ordem={{ ordenar_proximo }}&{{ request.query_string|safe }}">
+            Nome
+            {% if ordenar_por == 'nome' %}
+            {% if ordem == 'asc' %}
+                ▲
+            {% else %}
+                ▼
+            {% endif %}
+            {% endif %}
+        </a>
+        </th>
+        <th><a href="?ordenar=tipo&ordem={{ ordenar_proximo }}&{{ request.query_string|safe }}">
+            Tipo
+            {% if ordenar_por == 'tipo' %}
+            {% if ordem == 'asc' %}
+                ▲
+            {% else %}
+                ▼
+            {% endif %}
+            {% endif %}
+        
+        </a></th>
+        <th><a href="?ordenar=quantidade&ordem={{ ordenar_proximo }}&{{ request.query_string|safe }}">
+            Qtd
+            {% if ordenar_por == 'quantidade' %}
+            {% if ordem == 'asc' %}
+                ▲
+            {% else %}
+                ▼
+            {% endif %}
+            {% endif %}
+        
+        </a></th>
+        <th><a href="?ordenar=validade&ordem={{ ordenar_proximo }}&{{ request.query_string|safe }}">
+            Validade
+            {% if ordenar_por == 'validade' %}
+            {% if ordem == 'asc' %}
+                ▲
+            {% else %}
+                ▼
+            {% endif %}
+            {% endif %}
+        
+        </a></th>
+        <th> </th>
+    </tr>
+    </thead>
+    <tbody>
+        {% for item in itens %}
+        <tr class="{% if item.destaque == 'danger' %}table-danger{% elif item.destaque == 'warning' %}table-warning{% elif item.destaque == 'expired' %}table-expired{% endif %}">
+            <td>{{ item.nome }}</td>
+            <td>{{ item.tipo }}</td>
+            <td>{{ item.quantidade }}</td>
+            <td>{{ item.validade_str }}</td>
+            <td>
+              {% if session['autenticado'] %}
+                <a href="{{ url_for('edit', item_id=item.id) }}" class="btn_edit">Editar</a>
+                <a class="btn_delete" 
+                href="{{ url_for('delete', item_id=item.id) }}"
+                onclick="return confirm('Tem a certeza que quer eliminar este item?');">
+                Excluir
+              </a>
+              {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div style="text-align: right; margin-bottom: 10px;">
+<a href="/export?{% for d in destaque_filtro %}destaque={{ d }}&{% endfor %}
+          nome={{ nome_filtro }}&tipo={{ tipo_filtro }}&validade={{ validade_filtro }}" 
+   class="btn">
+  Exportar CSV
+</a>
+</div>
+
+<div class="legenda-tabela">
+  <strong>Legenda:</strong>
+  <span class="legenda-item expired">Produto expirado</span>
+  <span class="legenda-item warning">Validade próxima</span>
+  <span class="legenda-item danger">Pouca quantidade</span>
+</div>
+
+<nav>
+  <ul class="pagination justify-content-center">
+    {% if pagina > 1 %}
+      <li class="btn_ant_prox">
+        <a style="color:white" class="page-link" href="?pagina={{ p }}&nome={{ nome_filtro }}&tipo={{ tipo_filtro }}&destaque={{ destaque_filtro }}">Anterior</a>
+      </li>
+    {% endif %}
+    
+    {% for p in range(1, total_paginas + 1) %}
+      <li class="btn_index {% if p == pagina %}active{% endif %}">
+        <a style="color:white"  href="?pagina={{ p }}&nome={{ nome_filtro }}&tipo={{ tipo_filtro }}&destaque={{ destaque_filtro }}">{{ p }}</a>
+      </li>
+    {% endfor %}
+    
+    {% if pagina < total_paginas %}
+      <li class="btn_ant_prox">
+       <a style="color:white" href="?pagina={{ p }}&nome={{ nome_filtro }}&tipo={{ tipo_filtro }}&destaque={{ destaque_filtro }}">Próxima</a>
+      </li>
+    {% endif %}
+  </ul>
+</nav>
+
+
+
+</body>
+</html>

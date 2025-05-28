@@ -1,0 +1,282 @@
+body {
+    background-color: #f8f9fa;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container {
+    max-width: 800px;
+    background-color: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 40px;
+    color: #04447c;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+.table th {
+    background-color: rgb(213, 211, 211);
+    
+}
+
+.table th, .table td {
+    vertical-align: middle !important;
+}
+
+th a {
+  color: inherit;       /* herda a cor do texto normal (preto, geralmente) */
+  text-decoration: none; /* remove o sublinhado */
+  cursor: pointer;      /* mostra que é clicável */
+  display: inline-block; /* para facilitar o padding */
+  padding: 4px 8px;     /* um espaço confortável */
+  border-radius: 4px;   /* cantos arredondados */
+  transition: background-color 0.2s ease;
+}
+
+th a:hover {
+  background-color: #f0f0f0; /* muda o fundo no hover */
+  color: #000;               /* mantém a cor preta no hover */
+}
+
+.btn {
+    border-radius: 8px;
+}
+
+tr.table-warning > td {
+    background-color: #fce69f !important;
+    color: black !important;
+}
+
+tr.table-danger > td {
+    background-color: #f6a77c !important;
+    color: black !important;
+}
+
+tr.table-expired > td {
+    background-color: #e2735d !important;
+    color: black !important;
+}
+
+input[type="date"], input[type="number"], input[type="text"] {
+    border-radius: 6px;
+}
+
+a.btn {
+    padding: 10px;
+    background-color: #04447c;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 12px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+    align-items: right;
+    text-decoration: none; /* remove o sublinhado */
+}
+
+a.btn:hover {
+    background-color: #807ca0;
+    
+}
+
+a.btn_add {
+
+    padding: 10px;
+    background-color: #174f81;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+    align-items: right;
+    text-decoration: none; /* remove o sublinhado */
+}
+
+a.btn_add:hover {
+    background-color: #807ca0;
+}
+
+a.btn_edit {
+
+    padding: 10px;
+    background-color: #174f81;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 12px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+    align-items: right;
+    text-decoration: none; /* remove o sublinhado */
+}
+
+a.btn_edit:hover {
+    background-color: #807ca0;
+    
+}
+
+.btn_submit {
+
+    padding: 10px;
+    background-color: #174f81;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 12px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+    align-items: right;
+    text-decoration: none; /* remove o sublinhado */
+}
+
+.btn_submit:hover {
+    background-color: #807ca0;
+    
+}
+
+a.btn_delete {
+    padding: 10px;
+    background-color: #b14146;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 12px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+    align-items: right;
+    text-decoration: none; /* remove o sublinhado */
+
+}
+
+a.btn_delete:hover {
+    background-color: #807ca0;
+    
+}
+
+a.btn_login_out {
+    padding: 10px;
+    background-color: #5c7c98;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 12px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+    align-items: right;
+    text-decoration: none; /* remove o sublinhado */
+}
+
+#botaoFiltros {
+    padding: 10px;
+    background-color: #4c779c;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+    align-items: right;
+    margin-bottom: 10px;
+
+
+}
+
+
+.login_necessario {
+    text-align: right;
+    font-size: 15px;
+    color: #04447c;
+
+}
+
+.bemvindo {
+    text-align: right;
+    color: #04447c;
+    
+}
+
+
+.legenda-tabela {
+  margin: 15px 0;
+  font-size: 14px;
+}
+
+.legenda-item {
+  display: inline-block;
+  padding: 5px 10px;
+  margin-right: 10px;
+  border-radius: 4px;
+  color: black;
+}
+
+.legenda-item.expired {
+  background-color: #e2735d; /* ou a cor usada para itens expirados */
+}
+
+.legenda-item.warning {
+  background-color: #fce69f; /* cor de alerta para validade próxima */
+}
+
+.legenda-item.danger {
+  background-color: #f6a77c; /* cor para quantidade baixa */
+}
+
+
+
+.btn_ant_prox {
+    padding: 8px;
+    background-color: #4c779c;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+    align-items: right;
+    margin-bottom: 10px;
+    text-decoration: none; /* remove o sublinhado */
+
+}
+
+.btn_ant_prox:hover {
+    background-color: #807ca0;
+    
+    
+}
+
+
+
+.btn_index {
+    padding: 8px;
+    background-color: #4c779c;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+    align-items: right;
+    margin-bottom: 10px;
+    text-decoration: none; /* remove o sublinhado */
+
+}
+
+.btn_index:hover {
+    background-color: #807ca0;
+    
+}
